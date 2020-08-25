@@ -7,9 +7,18 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "ant-design-vue": "^1.6.4",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
     "vue": "^2.6.11",
+    "vue-masked-input": "^0.5.2",
     "vue-router": "^3.2.0",
+    "vue-slick-carousel": "^1.0.6",
+    "vue-star-rating": "^1.6.1",
+    "vuetify": "^2.3.5",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -17,6 +26,8 @@
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.2",
     "vue-template-compiler": "^2.6.11"
   }
 }

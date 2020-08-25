@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <template v-if="$route.name == 'Registration'">
+            <router-view/>
+        </template>
+        <template v-else-if="$route.name == 'Practice'">
+            <HeaderTwo />
+            <router-view/>
+            <Footer />
+        </template>
+        <template v-else>
+            <Header />
+            <Overlay />
+            <router-view class="section" id="main"/>
+            <Footer />
+        </template>
     </div>
-    <router-view/>
-  </div>
 </template>
 
+<script>
+import Header from '@/components/Header.vue'
+import HeaderTwo from '@/components/HeaderTwo.vue'
+import Footer from '@/components/Footer.vue'
+import Overlay from '@/components/Overlay.vue'
+
+export default {
+    name: 'app',
+    components: {
+        Header, Footer, HeaderTwo, Overlay
+    }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body{
+    font-family: 'Helvetica Neue' !important;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.section{
+    min-height: calc(100vh - 244px);
+    width: 100%;
 }
 </style>
