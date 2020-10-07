@@ -14,7 +14,7 @@
                     <p class="name">{{ course.mentor.name }}</p>
                     <div class="d-flex align-items-center review">
                         <star-rating 
-                            :rating="course.rating" 
+                            :rating="setRating(String(course.rating))" 
                             active-color="#FFCB4C" 
                             :read-only="true" 
                             :max-rating="5" 
@@ -39,6 +39,36 @@
 export default {
     name: 'course-card',
     props: ['courses'],
+    data(){
+        return{
+            rating: 0.4
+        }
+    },
+    methods: {
+        setRating(rating) {
+            if(rating === '0.1'){
+                return (0.5)
+            } else if(rating === '0.2'){
+                return (1)
+            } else if(rating === '0.3'){
+                return (1.5)
+            } else if(rating === '0.4'){
+                return (2)
+            } else if(rating === '0.5'){
+                return (2.5)
+            } else if(rating === '0.6'){
+                return (3)
+            } else if(rating === '0.7'){
+                return (3.5)
+            } else if(rating === '0.8'){
+                return (4)
+            } else if(rating === '0.9'){
+                return (4.5)
+            } else if(rating === '1'){
+                return (5)
+            }
+        }
+    }
 }
 </script>
 

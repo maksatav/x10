@@ -94,9 +94,9 @@ export default {
                 this.next_block = false
                 this.send_block = true
                 this.countDownTimer()
-                console.log(response)
                 localStorage.setItem('token', response.data.token),
                 this.token = response.data.token
+                // console.log(response.data)
             }).catch(err => {
                 alert('Ошибка')
             })
@@ -145,6 +145,7 @@ export default {
             this.send_kod_button = true
             this.count_down_text = true
             this.countDownTimer()
+            this.next()
         },
         countDownTimer() {
             if(this.countDown > 0) {

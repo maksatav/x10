@@ -41,6 +41,11 @@
 <script>
 export default {
     name: 'faq',
+    data(){
+        return{
+            questionIndex: 0
+        }
+    },
     mounted() {
         window.scrollTo(0,0)
     }

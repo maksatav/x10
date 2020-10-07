@@ -1,6 +1,6 @@
 <template>
     <div v-if="courses">
-        <router-link :to="{ name: 'Practice', params: {id: item.id }}" class="my-course-card" v-for="(item, index) in courses.data" :key="index">
+        <router-link :to="$route.name == 'Graduate' ? { name: 'Course', params: {id: item.id }} :{ name: 'Practice', params: {id: item.id }}" class="my-course-card" v-for="(item, index) in courses.data" :key="index">
             <img :src="item.imageUrl">
             <div class="description">
                 <h1>{{ item.title }}</h1>
@@ -14,7 +14,7 @@
                 <div class="rating">
                     <p class="mb-0 mr-3">Ваш рейтинг</p>
                     <star-rating 
-                        :rating="item.rating" 
+                        :rating="setRating(String(item.rating))" 
                         active-color="#FFCB4C" 
                         :read-only="true" 
                         :max-rating="5" 
@@ -33,7 +33,32 @@
 <script>
 export default {
     name: 'my-course-card',
-    props: ['courses']
+    props: ['courses'],
+    methods: {
+        setRating(rating) {
+            if(rating === '0.1'){
+                return (0.5)
+            } else if(rating === '0.2'){
+                return (1)
+            } else if(rating === '0.3'){
+                return (1.5)
+            } else if(rating === '0.4'){
+                return (2)
+            } else if(rating === '0.5'){
+                return (2.5)
+            } else if(rating === '0.6'){
+                return (3)
+            } else if(rating === '0.7'){
+                return (3.5)
+            } else if(rating === '0.8'){
+                return (4)
+            } else if(rating === '0.9'){
+                return (4.5)
+            } else if(rating === '1'){
+                return (5)
+            }
+        }
+    }
 }
 </script>
 

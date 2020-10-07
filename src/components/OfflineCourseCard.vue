@@ -14,7 +14,7 @@
                     <p class="name">{{ course.mentor.name }}</p>
                     <div class="d-flex align-items-center review">
                         <star-rating 
-                            :rating="setRating(course.rating)" 
+                            :rating="setRating(String(course.rating))" 
                             active-color="#FFCB4C" 
                             :read-only="true" 
                             :max-rating="5" 

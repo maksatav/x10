@@ -2,15 +2,15 @@
     <div class="home">
         <div class="home-image">
         </div>
-        <div class="popular-course">
-            <h1>Популярные курсы</h1>
+        <div class="popular-course pt-4">
+            <h1 class="mb-4">Популярные курсы</h1>
             <!-- <pre>{{courses}}</pre> -->
-            <div class="courses offline-course">
+            <!-- <div class="courses offline-course">
                 <div class="container">
                     <h6><router-link to="offlinecourses">Оффлайн курсы</router-link></h6>
                     <OfflineCourseCard :courses="offline_courses" />
                 </div>
-            </div>
+            </div> -->
             <div class="courses online-course">
                 <div class="container">
                     <h6><router-link to="onlinecourses">Онлайн курсы</router-link></h6>

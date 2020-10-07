@@ -120,6 +120,7 @@ export default {
                         right: 5px;
                         bottom: 2px;
                         left: initial;
+                        object-fit: contain;
                     }
                 }
             }

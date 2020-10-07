@@ -46,7 +46,7 @@
                                 <!-- <p class="text"><img src="../assets/image/icon/prize.png"> Сертификат при окончании </p> -->
                                 <div class="d-flex align-items-center mb-3">
                                     <star-rating 
-                                        :rating="course.rating" 
+                                        :rating="setRating(String(course.rating))" 
                                         active-color="#FFCB4C" 
                                         :read-only="true" 
                                         :max-rating="5" 
@@ -136,7 +136,7 @@
                                 <!-- <p class="text"><img src="../assets/image/icon/prize.png"> Сертификат при окончании </p> -->
                                 <div class="d-flex align-items-center mb-3">
                                     <star-rating 
-                                        :rating="course.rating" 
+                                        :rating="setRating(String(course.rating))" 
                                         active-color="#FFCB4C" 
                                         :read-only="true" 
                                         :max-rating="5" 
@@ -262,6 +262,29 @@ export default {
                 console.log(err)
                 alert('Ошибка')
             })
+        },
+        setRating(rating) {
+            if(rating === '0.1'){
+                return (0.5)
+            } else if(rating === '0.2'){
+                return (1)
+            } else if(rating === '0.3'){
+                return (1.5)
+            } else if(rating === '0.4'){
+                return (2)
+            } else if(rating === '0.5'){
+                return (2.5)
+            } else if(rating === '0.6'){
+                return (3)
+            } else if(rating === '0.7'){
+                return (3.5)
+            } else if(rating === '0.8'){
+                return (4)
+            } else if(rating === '0.9'){
+                return (4.5)
+            } else if(rating === '1'){
+                return (5)
+            }
         }
     }
 }

@@ -40,27 +40,33 @@
                             role="tabpanel" 
                             :aria-labelledby="'v-pills-tab' + index2"
                             :class="{'active' : index2 === tabs_index, 'show': index2 === tabs_index}"
-                            v-show="index2 === tabs_index"
+                            v-if="index2 === tabs_index"
                         >
                             <div class="course-content-show">
                                 <div class="course-content-show__top">
                                     <h1 class="recomen">{{ content.name }}</h1>
                                     <p class="text">{{ content.content }}</p>
-
                                     <div class="quiz" v-if="content.courseLabelTypeEnum === 'QUIZ' && quiz">
                                         <div v-if="!content.userCourseProgress || content.userCourseProgress.progress === 0">
-                                            <!-- {{answer_quiz}} -->
-                                            <div v-for="(question, index) in quiz.quizSlotList" :key="index" v-if="question">
-                                                <div class="quiz-item" v-show="index === questionIndex">
-                                                    <h6 class="question">{{ question.question.questionText }} </h6>
+                                            <!-- {{answer_quiz.length}} -->
+                                            <div v-for="(question, question_index) in quiz.quizSlotList" :key="question_index">
+                                                <div class="quiz-item" v-show="question_index === questionIndex">
+                                                    <h6 class="question">{{ question.question.questionText }}</h6>
                                                     <div class="custom-control custom-radio mb-3" v-for="(answer, answer_index) in question.question.questionAnswerList" :key="answer_index">
-                                                        <input type="radio" class="custom-control-input" :id="index + 'customRadio' + answer_index" :value="answer.fraction == 0 ? index + '0' + answer_index : answer.fraction" :name="index" v-model="answer_quiz[index]">
-                                                        <label class="custom-control-label" :for="index + 'customRadio' + answer_index">{{ answer.answer }}</label>
+                                                        <input 
+                                                            type="radio" 
+                                                            class="custom-control-input" 
+                                                            v-model="answer_quiz[question_index]"
+                                                            :id="question_index + 'customRadio' + answer_index" 
+                                                            :value="answer.fraction == 0 ? question_index + '0' + answer_index : answer.fraction" 
+                                                            :name="question_index" 
+                                                            >
+                                                        <label class="custom-control-label" :for="question_index + 'customRadio' + answer_index">{{ answer.answer }}</label>
                                                     </div>
                                                     <div class="quiz-buttons">
                                                         <button type="button" v-if="questionIndex > 0" @click="prevQuiz" class="btn">Предыдущий</button>
                                                         <button type="button" class="btn" v-if="quiz.quizSlotList.length > questionIndex + 1" @click="nextQuiz">Следующий</button>
-                                                        <button type="button" class="btn" @click="countQuiz(quiz.id)" v-else>Отправить</button>
+                                                        <button type="button" class="btn" @click="countQuiz(quiz.id)" :disabled="!(quiz.quizSlotList.length == answer_quiz.length)" v-else>Отправить</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,7 +83,7 @@
                                                 <h6 class="prowly">Вы не прошли тест</h6>
                                                 <p class="percent">{{content.userCourseProgress.progress * 100}}%</p>
                                                 <p class="neobhodimo">Для прохождения<br>
-                                                    необходимо не менее {{content.userCourseProgress.progress * 100}}%
+                                                    необходимо не менее {{quiz.checkpointPercent * 100}}%
                                                 </p>
                                                 <button type="button" class="btn peresdat" @click="retakeTest(content.id)">Пересдать</button>
                                             </div>
@@ -113,7 +119,7 @@
 </template>
 
 <script>
-import $ from "jquery";
+import $ from "jquery"
 import axios from 'axios'
 
 export default {
@@ -131,7 +137,8 @@ export default {
             duration: null,
             every_second: null,
             current_second: null,
-            current_video_id: null
+            current_video_id: null,
+            userResponses: Array()
         }
     },
     filters: {
@@ -144,11 +151,11 @@ export default {
             minutes = (minutes < 10) ? "" + minutes : minutes;
 
             if(hours === '0') {
-            return minutes + " мин";
+                return minutes + " мин";
             } else if(minutes === '0') {
                 return hours + " час";
             } else {
-            return hours + " час, " + minutes + " мин";
+                return hours + " час, " + minutes + " мин";
             }
         }
     },
@@ -275,10 +282,17 @@ export default {
                 },
                 progress: this.total
             }
+            console.log(this.answer_quiz)
+            console.log(this.right_answer_quiz)
+            console.log(this.total)
             this.$store.dispatch('GET_USER_COURSES_PROGRESS', data)
             .then(response => {
                 this.$store.dispatch('GET_COURSE_SECTION', this.$route.params.id)
-                console.log(response)
+                .then(response => {
+                    this.answer_quiz = Array()
+                    this.right_answer_quiz = []
+                    this.questionIndex = 0
+                })
             }).catch(err => {
                 console.log(err)
             })
@@ -698,8 +712,8 @@ export default {
                         top: 2px;
                     }
                     .custom-control-input:checked~.custom-control-label::before{
-                        border-color: #03B3E4 !important;
-                        background-color: #03B3E4 !important;
+                        border-color: #03B3E4;
+                        background-color: #03B3E4;
                     }
                     .custom-radio .custom-control-input:checked~.custom-control-label::after{
                         background-image: none;

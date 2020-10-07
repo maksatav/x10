@@ -6,12 +6,12 @@
             </div>
         </div>
         <div class="courses-block">
-            <div class="courses offline-course">
+            <!-- <div class="courses offline-course">
                 <div class="container">
                     <h6><router-link to="offlinecourses">Оффлайн курсы</router-link></h6>
                     <OfflineCourseCard :courses="offline_courses" />
                 </div>
-            </div>
+            </div> -->
             <div class="courses online-course">
                 <div class="container">
                     <h6><router-link to="onlinecourses">Онлайн курсы</router-link></h6>
